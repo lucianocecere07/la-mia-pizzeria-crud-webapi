@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model PizzaCategoria
+
+<div class="container">
+    <h2><u>Compila il form per aggiungere la pizza al menù</u></h2>
+    <form asp-controller="Pizza" asp-action="Aggiungi">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label class="form-label fw-bolder">Nome</label>
+            <input type="text" class="form-control" asp-for="Pizza.Name">
+            <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bolder">Descrizione</label>
+            <input type="text" class="form-control" asp-for="Pizza.Description">
+            <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bolder">Categoria</label>
+            <select asp-for="Pizza.CategoriaId">
+                <option value=""></option>
+                @foreach (Categoria categoria in Model.Categoria)
+                {
+                    <option value="@categoria.Id" >@categoria.Name</option>
+                }
+            </select>
+            <span asp-validation-for="Pizza.CategoriaId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Ingredienti:</label>
+            <select asp-for="IngredientiSelect" asp-items="@Model.Ingredienti" multiple size="10" class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label fw-bolder">Percorso dell'immagine</label>
+            <input type="text" class="form-control" asp-for="Pizza.Image">
+            <span asp-validation-for="Pizza.Image" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bolder">Prezzo (€)</label>
+            <input type="text" class="form-control" asp-for="Pizza.Price">
+            <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-link btn-lg" value="salva">Aggiungi la pizza</button>
+    </form>
+</div>
