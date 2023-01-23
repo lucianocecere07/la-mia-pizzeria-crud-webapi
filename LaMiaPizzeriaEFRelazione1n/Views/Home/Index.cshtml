@@ -27,16 +27,67 @@
             </div>
         </div>
     </div>
-    <div class="row js_no_post text-center d-none">
+    <div class="row js_no_pizza text-center d-none">
         <div class="col-12">
             <h3>Non sono presenti pizze</h3>
         </div>
     </div>
-    <div class="row js_post_table d-none">
+    <div class="row js_pizza_table d-none">
 
     </div>
 </div>
 
-
-
 <h5 class="mb-0 mx-2">Per accedere al menù premi qui: <a class="text-primary fs-4 mx-2" asp-area="" asp-controller="Pizza" asp-action="Index"><u>Menù delle Pizze</u></a></h5>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        loadList();
+
+        function loadList() {
+
+            axios.get('/api/Pizzas/Get').then((res) => {
+
+                console.log('risultato ok', res);
+
+                if (res.data.length == 0) {
+
+                    document.querySelector('.js_no_pizza').classList.remove('d-none');
+                    document.querySelector('.js_pizza_table').classList.add('d-none');
+
+                } else {
+
+                    document.querySelector('.js_pizza_table').classList.remove('d-none');
+                    document.querySelector('.js_no_pizza').classList.add('d-none');
+
+                    document.querySelector('.js_pizza_table').innerHTML = '';
+
+                    res.data.forEach(pizza => {
+
+                        console.log('pizza', pizza);
+
+                        document.querySelector('.js_pizza_table').innerHTML +=
+                            `
+                                           <div class="col-12 col-md-4 p-2">
+                                            <div class="card mb-3">
+                                                <img src="${pizza.image}" class="card-img-top" alt="..." width="300px" height="250px">
+                                              <div class="card-body">
+                                                <h5 class="card-title">${pizza.name}</h5>
+                                                <p class="card-text">${pizza.description}</p>
+                                              </div>
+                                            </div>
+                                        </div>
+                            `;
+                    });
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+
+        }
+
+    </script>
+
+}
