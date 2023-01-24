@@ -24,6 +24,9 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="mt-3 mb-3">Lista pizze</h1>
+                <div class="input-group-lg mt-3 mb-3">
+                    <input id="ricerca" type="text" class="form-control" placeholder="Cerca la pizza...">
+                </div>
             </div>
         </div>
     </div>
@@ -50,21 +53,28 @@
 
     <script type="text/javascript">
 
-        loadList();
+        CaricaListaPizze();
 
-        function loadList() {
+        document.getElementById("ricerca").addEventListener("keypress", ricercaPizza);
+
+        function ricercaPizza(){
+            var valoreDiRicerca = document.getElementById("ricerca").value;
+            CaricaListaPizze(valoreDiRicerca);
+        }
+
+        function CaricaListaPizze() {
 
             axios.get("/api/Pizzas/Get").then((res) => {
 
                 console.log("risultato ok", res);
 
-                if (res.data.length == 0) {
-
+                if (res.data.length == 0) 
+                {
                     document.getElementById("no_pizza").classList.remove("d-none");
                     document.getElementById("lista_pizza").classList.add("d-none");
-
-                } else {
-
+                } 
+                else 
+                {
                     document.getElementById("lista_pizza").classList.remove("d-none");
                     document.getElementById("no_pizza").classList.add("d-none");
 
