@@ -43,13 +43,19 @@
                             <td>
                                 <a class="btn btn-primary" href="@Url.Action("Dettagli", "Pizza", new { id = pizza.Id } )" role="button">Dettagli</a>
                             </td>
-                            <td><a class="btn btn-warning" href="@Url.Action("Modifica", "Pizza", new { id = pizza.Id } )" role="button">Modifica</a></td>
-                            <td>
-                                <form asp-controller="Pizza" asp-action="Elimina" asp-route-id="@pizza.Id">
-                                    @Html.AntiForgeryToken()
-                                    <button class="btn btn-danger type="submit">Elimina</button>
-                                </form>
-                            </td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <td><a class="btn btn-warning" href="@Url.Action("Modifica", "Pizza", new { id = pizza.Id } )" role="button">Modifica</a></td>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <td>
+                                    <form asp-controller="Pizza" asp-action="Elimina" asp-route-id="@pizza.Id">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-danger type="submit">Elimina</button>
+                                    </form>
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>
