@@ -27,12 +27,12 @@
             </div>
         </div>
     </div>
-    <div class="row js_no_pizza text-center d-none">
+    <div id="no_pizza" class="row text-center d-none">
         <div class="col-12">
             <h3>Non sono presenti pizze</h3>
         </div>
     </div>
-    <div class="row js_pizza_table d-none">
+    <div id="lista_pizza" class="row d-none">
 
     </div>
 </div>
@@ -50,35 +50,35 @@
 
             axios.get('/api/Pizzas/Get').then((res) => {
 
-                console.log('risultato ok', res);
+                console.log("risultato ok", res);
 
                 if (res.data.length == 0) {
 
-                    document.querySelector('.js_no_pizza').classList.remove('d-none');
-                    document.querySelector('.js_pizza_table').classList.add('d-none');
+                    document.getElementById("no_pizza").classList.remove("d-none");
+                    document.getElementById("lista_pizza").classList.add("d-none");
 
                 } else {
 
-                    document.querySelector('.js_pizza_table').classList.remove('d-none');
-                    document.querySelector('.js_no_pizza').classList.add('d-none');
+                    document.getElementById("lista_pizza").classList.remove("d-none");
+                    document.getElementById("no_pizza").classList.add("d-none");
 
-                    document.querySelector('.js_pizza_table').innerHTML = '';
+                    document.getElementById("lista_pizza").innerHTML = '';
 
                     res.data.forEach(pizza => {
 
-                        console.log('pizza', pizza);
+                        console.log("pizza", pizza);
 
-                        document.querySelector('.js_pizza_table').innerHTML +=
+                        document.getElementById("lista_pizza").innerHTML +=
                             `
-                                           <div class="col-12 col-md-4 p-2">
-                                            <div class="card mb-3">
-                                                <img src="${pizza.image}" class="card-img-top" alt="..." width="300px" height="300px">
-                                              <div class="card-body">
-                                                <h5 class="card-title">${pizza.name}</h5>
-                                                <p class="card-text">${pizza.description}</p>
-                                              </div>
-                                            </div>
+                                <div class="col-12 col-md-4 p-2">
+                                    <div class="card mb-3">
+                                        <img src="${pizza.image}" class="card-img-top" alt="..." width="300px" height="300px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${pizza.name}</h5>
+                                            <p class="card-text">${pizza.description}</p>
                                         </div>
+                                    </div>
+                                </div>
                             `;
                     });
                 }
