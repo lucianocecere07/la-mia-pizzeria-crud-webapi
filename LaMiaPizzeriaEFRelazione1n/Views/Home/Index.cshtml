@@ -27,6 +27,12 @@
             </div>
         </div>
     </div>
+
+    <div id="spinner" class="text-center">
+        <h4>Caricamento...</h4>
+        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+
     <div id="no_pizza" class="row text-center d-none">
         <div class="col-12">
             <h3>Non sono presenti pizze</h3>
@@ -48,7 +54,7 @@
 
         function loadList() {
 
-            axios.get('/api/Pizzas/Get').then((res) => {
+            axios.get("/api/Pizzas/Get").then((res) => {
 
                 console.log("risultato ok", res);
 
@@ -82,6 +88,7 @@
                             `;
                     });
                 }
+                document.getElementById("spinner").classList.add("d-none");
             }).catch((error) => {
                 console.log(error);
             });
