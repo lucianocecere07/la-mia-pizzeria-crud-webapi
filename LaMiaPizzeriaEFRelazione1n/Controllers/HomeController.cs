@@ -18,6 +18,11 @@ namespace LaMiaPizzeriaEFRelazione1n.Controllers
             return View();
         }
 
+        public IActionResult Dettagli()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -30,5 +30,23 @@ namespace LaMiaPizzeriaEFRelazione1n.Controllers
                 return Ok(pizze);
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetDettagli(int id)
+        {
+
+            using (PizzeriaContext db = new PizzeriaContext())
+            {
+                Pizza pizza = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+
+                if (pizza == null)
+                {
+                    return NotFound("Questa pizza non è stata trovata!");
+                }
+
+                return Ok(pizza);
+            }
+        }
+
     }
 }
