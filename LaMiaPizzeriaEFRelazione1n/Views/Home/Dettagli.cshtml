@@ -20,8 +20,15 @@
 
         axios.get(`/api/Pizzas/GetDettagli/${id}`).then((res) => {
             
-            var pizza = res.data;
+            let pizza = res.data;
             console.log("risultato ok", pizza);
+
+            let ingredientiHtml = "";
+
+            pizza.ingredienti.forEach(ingrediente => {
+                ingredientiHtml += `<p class="fw-light" > ${ingrediente.name} </p>`;
+            } );
+
 
             document.getElementById("dettagli-pizza").innerHTML +=
                 `
@@ -35,6 +42,10 @@
                         <img src="${pizza.image}" class="img-fluid" alt="${pizza.name}" width="300px" height="300px">
                         <p class="fw-bolder"> Prezzo Pizza: </p>
                         <p class="fw-light"> ${pizza.price} €</p>
+                        <p class="fw-bolder"> Categoria Pizza: </p>
+                        <p class="fw-light"> ${pizza.categoria.name} </p>
+                        <p class="fw-bolder"> Ingredienti Pizza: </p>
+                        ${ingredientiHtml}
                     </div>
                 `          
         });
